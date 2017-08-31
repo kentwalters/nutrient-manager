@@ -79,12 +79,13 @@ var landWaterMask = new ol.layer.Image({
             'VERSION': '1.1.1',  
             STYLES: '',
             LAYERS: 'sksoil:CB_LandWaterMask'
-        }
+        },
     })
 });
 
 var nutrientPotentialTif = new ol.layer.Image({
     source: new ol.source.ImageWMS({
+        crossOrigin: 'anonymous',
         ratio: 1,
         url: 'http://sksoilgis1.usask.ca:80/geoserver/sksoil/wms',
         params: {
