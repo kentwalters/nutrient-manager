@@ -1,3 +1,5 @@
+//import [saveAs} from 'fileSaver.js';
+
 var geoserverBaseURL = 'http://sksoilgis1.usask.ca/geoserver/sksoil/wms';
 
 var surfaceTextureTif = new ol.layer.Image({
@@ -124,6 +126,11 @@ var map = new ol.Map({
   })
 });
 
+$(document).ready (function(){
+    $("#popup-alert").hide();
+
+});
+
 var radios = $("#myButtons :input");
 
 var slider = document.getElementById("moisture-slider");
@@ -216,6 +223,10 @@ document.getElementById('export-tiff').addEventListener('click', function() {
   xhr.open("POST", "http://sksoilgis1.usask.ca/geoserver/sksoil/wcs?");
 
   xhr.send(data);
+
+  $("#popup-alert").fadeTo(5000, 500).slideUp(500, function(){
+    $("#popup-alert").slideUp(500);
+  });
 });
 
 
@@ -229,10 +240,12 @@ document.getElementById('export-png').addEventListener('click', function() {
       navigator.msSaveBlob(canvas.msToBlob(), 'SKSIS Export - ' + date.getTime());
     } else {
       canvas.toBlob(function(blob) {
+        //FileSaver.saveAs(blob, 'SKSIS Export - ' + date.getTime());
         saveAs(blob, 'SKSIS Export - ' + date.getTime());
       });
     }
   });
 
   map.renderSync();
+
 });
